@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 
 class Camel_Dataset(torch.utils.data.Dataset):
     def __init__(self, images, train=True, labels=None):
@@ -12,8 +13,8 @@ class Camel_Dataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         image = self.images[idx]
-        if labels:
+        image = image.reshape((1,28,28)).astype(np.float32)
+        if self.labels:
             label = 1
-            image = image.reshape((1,28,28)).astype(np.float32)
             return (image, label)
         return image
